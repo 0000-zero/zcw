@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--
+        springmvc.xml:  controller组件扫描、视图解析器、静态资源处理器、注解驱动
+    -->
+
+    <!-- 扫描Controller注解 -->
+    <context:component-scan base-package="com.atzcw.zcw" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 视图解析器：controller方法返回的视图名称拼接规则 -->
+    <!--  以后项目的所有页面 可能涉及到访问权限 ，如果页面放在WEB-INF外可以被直接访问
+        所以以后所有的页面都存放在WEB-INF下，controller中会提供转发到每个页面的方法
+
+        如果希望重定向访问页面，可以重定向到controller的指定方法然后再转发到页面
+      -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!-- 静态资源 -->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+    <!-- 注解驱动 -->
+    <mvc:annotation-driven/>
+<!--    <mvc:annotation-driven>-->
+<!--        <mvc:message-converters register-defaults="true">-->
+<!--            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">-->
+<!--                <property name="defaultCharset" value="UTF-8"></property>-->
+<!--            </bean>-->
+<!--        </mvc:message-converters>-->
+<!--    </mvc:annotation-driven>-->
+
+
+
+
+
+</beans>

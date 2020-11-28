@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!--
+        spring-mybatis.xml: mybatis的  sqlSessionFactoryBean     mapperscan
+    -->
+
+    <!-- sqlSessionFactoryBean -->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- mybatis建立会话时获取数据库连接的连接池 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- mybatis的mapper映射文件：存放在impl项目的resources下  resources/mybatis/mapper/ -->
+        <property name="mapperLocations" value="classpath*:/mybatis/mapper/*"></property>
+        <!-- mybatis的全局配置文件:存放在main项目的resources/mybatis目录下 -->
+        <property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"></property>
+    </bean>
+
+    <!-- mapper扫描 ：指定mapper接口所在的包 -->
+    <!-- <bean class="org.mybatis.spring.annotation.MapperScan"></bean>-->
+    <mybatis:scan base-package="com.atzcw.zcw.mapper"></mybatis:scan>
+
+</beans>
